@@ -18,8 +18,8 @@ export default function Home({ titleProp }) {
 
   return (
     <div>
-      {" "}
-      <div>{title}</div>
+      <div>Original: TITLE NOT CHANGED </div>
+      <div>New: {title}</div>
     </div>
   );
 }
