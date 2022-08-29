@@ -27,7 +27,7 @@ export default function Home({ titleProp }) {
 
   useEffect(() => {
     setTitle(titleProp);
-  });
+  }, []);
 
   return (
     <div>
