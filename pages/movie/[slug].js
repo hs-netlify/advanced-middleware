@@ -11,12 +11,19 @@ export const getStaticProps = async () => {
   };
 };
 
+export const getStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
 export const getDynamicProps = async () => {
   const test = await (
     await fetch("https://jsonplaceholder.typicode.com/todos/1")
   ).json();
 
-  const name = test?.title;
+  const name = "newTitleMovie";
 
   return { props: { titleProp: name } };
 };

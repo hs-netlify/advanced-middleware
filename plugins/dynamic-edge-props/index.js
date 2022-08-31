@@ -1,22 +1,31 @@
-import { getPaths } from "./utils.js";
-import fs from "fs";
-
-export const onPreBuild = async function ({
-  utils: { build, status, cache, run, git },
-}) {
+const { getPaths } = require("./utils");
+const fs = require("fs");
+exports.onBuild = async function ({}) {
   let paths = getPaths();
 
-  let imports = paths.map((path, index) => {
-    let moduleName = index;
-    return {
-      module: index,
-      importText: `import {dynamicEdgeProps as dynamicProps${moduleName} } from '../../${path}'`,
-    };
+  const dynamicProps = [];
+  console.log(paths);
+
+  paths.forEach(async (page) => {
+    let pg = require(`../../.next/server/${page}`);
+    console.log(pg);
+
+    if (pg.getDynamicProps) {
+      console.log("here");
+      dynamicProps.push(`{
+          path: "${page
+            .replace("pages", "")
+            .replace(".js", "")
+            .replace(/\[([^\]]+)\]/g, "*")
+            .replace("index", "")}",
+
+          props: ${pg.getDynamicProps.toString().split(",")[0]}
+        }`);
+    }
   });
-  console.log(imports);
 
   fs.writeFileSync(
-    "./lib/netlifyDynamicProp/modules.mjs",
-    imports.map((module) => module.importText).join("\r\n")
+    "./lib/netlifyDynamicProps/props.js",
+    `export const dynamicProps = [${dynamicProps.join(",\r\n")}]`
   );
 };

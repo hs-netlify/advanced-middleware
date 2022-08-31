@@ -1,6 +1,6 @@
-import dirTree from "directory-tree";
+const dirTree = require("directory-tree");
 
-export const getPaths = () => {
+exports.getPaths = () => {
   const tree = dirTree("./pages/", { attributes: [], depth: 10 });
 
   let paths = tree.children.map((dir) => [...getChildrenPaths(dir)]).flat(10);
