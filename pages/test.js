@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { RenderDynamicProp } from "../lib/netlifyDynamicProps";
 
 export const getStaticProps = async () => {
@@ -12,16 +12,17 @@ export const getStaticProps = async () => {
 };
 
 export const getDynamicProps = async () => {
-  const test = await (
-    await fetch("https://jsonplaceholder.typicode.com/todos/2")
-  ).json();
-  const name = test?.title;
+  // const test = await (
+  //   await fetch("https://jsonplaceholder.typicode.com/todos/1")
+  // ).json();
+
+  const name = "newTitle";
 
   return { props: { title: name } };
 };
 
 export default function Home({ title }) {
-  let dynamicTitle = RenderDynamicProp(title);
+  const dynamicTitle = RenderDynamicProp(title);
 
   return (
     <div>

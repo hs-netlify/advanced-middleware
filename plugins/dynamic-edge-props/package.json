@@ -1,0 +1,15 @@
+{
+  "name": "dynamic-edge-props",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@netlify/plugin-nextjs": "^4.21.1",
+    "directory-tree": "^3.3.0"
+  }
+}
