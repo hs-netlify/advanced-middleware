@@ -6,13 +6,15 @@ exports.onBuild = async function ({}) {
   const dynamicProps = [];
   console.log(paths);
 
-  paths.forEach(async (page) => {
-    let pg = require(`../../.next/server/${page}`);
-    console.log(pg);
+  await Promise.all(
+    paths.map(async (page) => {
+      console.log(page);
+      let pg = require(`../../.next/server/${page}`);
+      console.log(pg);
 
-    if (pg.getDynamicProps) {
-      console.log("here");
-      dynamicProps.push(`{
+      if (pg.getDynamicProps) {
+        console.log("here");
+        dynamicProps.push(`{
           path: "${page
             .replace("pages", "")
             .replace(".js", "")
@@ -21,8 +23,9 @@ exports.onBuild = async function ({}) {
 
           props: ${pg.getDynamicProps.toString().split(",")[0]}
         }`);
-    }
-  });
+      }
+    })
+  );
 
   fs.writeFileSync(
     "./lib/netlifyDynamicProps/props.js",

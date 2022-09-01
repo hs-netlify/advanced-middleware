@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import React from "react";
+import { RenderDynamicProp } from "../../lib/netlifyDynamicProps";
 
 export const getStaticProps = async () => {
-  const titleProp = "TITLE NOT CHANGED";
+  const title = "TITLE NOT CHANGED";
 
   return {
     props: {
-      titleProp,
+      title,
     },
   };
 };
@@ -25,20 +25,15 @@ export const getDynamicProps = async () => {
 
   const name = "newTitleMovie";
 
-  return { props: { titleProp: name } };
+  return { props: { title: name } };
 };
 
-export default function Home({ titleProp }) {
-  const [title, setTitle] = useState();
-
-  useEffect(() => {
-    setTitle(titleProp);
-  });
-
+export default function Home({ title }) {
+  const dynamicTitle = RenderDynamicProp(title);
   return (
     <div>
       <div>Original: TITLE NOT CHANGED </div>
-      <div>New: {title}</div>
+      <div>New: {dynamicTitle}</div>
     </div>
   );
 }

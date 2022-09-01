@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { DynamicPropHook } from "../lib/netlifyDynamicProps";
+import React from "react";
+import { RenderDynamicProp } from "../lib/netlifyDynamicProps";
 
 export const getStaticProps = async () => {
   const title = "TITLE NOT CHANGED";
@@ -24,7 +23,7 @@ export const getDynamicProps = async () => {
 };
 
 export default function Home({ title }) {
-  let dynamicTitle = DynamicPropHook(title);
+  let dynamicTitle = RenderDynamicProp(title);
 
   return (
     <div>
