@@ -23,7 +23,7 @@ export const getDynamicProps = async () => {
     await fetch("https://jsonplaceholder.typicode.com/todos/1")
   ).json();
 
-  const name = "newTitleMovie!";
+  const name = "newTitleMovie!!";
 
   return { props: { title: name } };
 };
