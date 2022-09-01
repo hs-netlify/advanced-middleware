@@ -17,7 +17,20 @@ export const getDynamicProps = async () => {
   ).json();
   const name = test?.title;
 
-  return { props: { title: name } };
+  const htmlRewrite = {
+    text(textChunk) {
+      if (textChunk.lastInTextNode) {
+        textChunk.replace(message);
+      } else {
+        textChunk.remove();
+      }
+    },
+  };
+
+  return {
+    props: { title: name },
+    htmlRewrite: [{ selector: "div[id=title]", htmlRewrite }],
+  };
 };
 
 export default function Home({ title }) {
@@ -26,7 +39,7 @@ export default function Home({ title }) {
   return (
     <div>
       <div>Original: TITLE NOT CHANGED </div>
-      <div>New: {dynamicTitle}</div>
+      <div id="title">New: {dynamicTitle}</div>
     </div>
   );
 }
