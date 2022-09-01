@@ -1,2 +1,5 @@
 [[plugins]]
   package = '/plugins/dynamic-edge-props'
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"
