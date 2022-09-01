@@ -17,12 +17,14 @@ export const getDynamicProps = async () => {
   ).json();
   const name = test?.title;
 
-  return { props: { title: name } };
+  return {
+    props: { title: name },
+    npmPackages: { name: "{join}", package: "lodash-es" },
+  };
 };
 
 export default function Home({ title }) {
   let dynamicTitle = RenderDynamicProp(title);
-
   return (
     <div>
       <div>Original: TITLE NOT CHANGED </div>
