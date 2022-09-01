@@ -9,12 +9,12 @@ exports.onBuild = async function ({}) {
   await Promise.all(
     paths.map(async (page) => {
       console.log(page);
-      let pg = require(`../../.next/server/${page}`);
-      console.log(pg);
-
-      if (pg.getDynamicProps) {
-        console.log("here");
-        dynamicProps.push(`{
+      try {
+        let pg = require(`../../.next/server/${page}`);
+        console.log(pg);
+        if (pg.getDynamicProps) {
+          console.log("here");
+          dynamicProps.push(`{
           path: "${page
             .replace("pages", "")
             .replace(".js", "")
@@ -23,6 +23,9 @@ exports.onBuild = async function ({}) {
 
           props: ${pg.getDynamicProps.toString().split(",")[0]}
         }`);
+        }
+      } catch (error) {
+        console.log("No dynamic props");
       }
     })
   );
